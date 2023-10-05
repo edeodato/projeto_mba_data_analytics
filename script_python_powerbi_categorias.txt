@@ -1,0 +1,29 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df_cat = dataset[['product_category_name']].value_counts().to_frame().reset_index().rename(columns={0: 'total'})
+
+df_cat.sort_values('total', inplace=True, ascending=True)
+df_categoria = df_cat[-5:]
+
+fig, ax = plt.subplots(figsize=(26,14))
+
+fig.patch.set_facecolor('black')
+fig.patch.set_alpha(0.1)
+ax.patch.set_facecolor('black')
+ax.patch.set_alpha(0.1)
+ax.tick_params(axis='y', labelcolor='white', labelsize=20)
+#ax.yaxis.label.set_color('white')
+
+bars = plt.barh(df_categoria.product_category_name  , df_categoria.total)
+
+ax.spines[['right', 'left', 'top', 'bottom']].set_visible(False) 
+ax.xaxis.set_visible(False)
+
+ax.bar_label(bars, padding=-120, color='white', 
+             fontsize=30, label_type='edge',
+             fontweight='bold')
+
+ax
+
+plt.show()
